@@ -1,0 +1,44 @@
+when:
+
+  - event: push
+
+variables:
+  - &repo "misotolar/ipxe-builder"
+  - &desc "Custom iPXE firmware build container"
+
+clone:
+
+  - name: clone
+    image: alpine/git
+    pull: true
+    commands:
+      - git init --quiet
+      - git remote add origin ${CI_REPO_CLONE_URL}
+      - git fetch --quiet --depth=1 origin "+refs/heads/${CI_COMMIT_BRANCH}:"
+      - git checkout ${CI_COMMIT_SHA} -b ${CI_COMMIT_BRANCH}
+
+steps:
+
+  - name: publish
+    image: woodpeckerci/plugin-docker-buildx
+    pull: true
+    settings:
+      repo: *repo
+      platforms: linux/amd64
+      tag: ['${CI_COMMIT_SHA:0:8}', latest]
+      username:
+          from_secret: DOCKER_USERNAME
+      password:
+          from_secret: DOCKER_PASSWORD
+
+  - name: update
+    image: misotolar/woodpecker-docker-update
+    pull: true
+    settings:
+      repo: *repo
+      desc: *desc
+      readme: README.md
+      username:
+          from_secret: DOCKER_USERNAME
+      password:
+          from_secret: DOCKER_PASSWORD
