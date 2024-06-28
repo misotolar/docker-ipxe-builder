@@ -2,7 +2,7 @@ FROM debian:bookworm-slim AS build
 
 LABEL maintainer="michal@sotolar.com"
 
-ARG VERSION=821bb326f87fbc000376fdc5371e9e53f666267a
+ARG VERSION=b66e27d9b29a172a097c737ab4d378d60fe01b05
 ARG URL=https://github.com/ipxe/ipxe
 
 ENV PRODUCT_NAME ""
