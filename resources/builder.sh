@@ -37,3 +37,4 @@ cp -av bin/ipxe.lkrn "$@"/ipxe.lkrn
 cp -av bin/undionly.kpxe "$@"/undionly.kpxe
 cp -av bin-i386-efi/ipxe.efi "$@"/efi-i386.efi
 cp -av bin-x86_64-efi/ipxe.efi "$@"/efi-x86_64.efi
+cp -av /build/wimboot/wimboot "$@"/wimboot

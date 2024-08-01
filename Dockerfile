@@ -5,6 +5,10 @@ LABEL maintainer="michal@sotolar.com"
 ARG VERSION=a064d397688930dcb341f62587db4e8e786777a0
 ARG URL=https://github.com/ipxe/ipxe
 
+ARG WIMBOOT_VERSION=2.8.0
+ARG WIMBOOT_SHA256=74d4bf3d09386ccbbe907d9db59030f8cd8c88f7b4ccb799d386f31def11b3fe
+ADD https://github.com/ipxe/wimboot/releases/download/v$WIMBOOT_VERSION/wimboot /build/wimboot/wimboot
+
 ENV PRODUCT_NAME ""
 ENV PRODUCT_SHORT_NAME ""
 ENV PRODUCT_URI https://ipxe.org
@@ -27,6 +31,7 @@ RUN set -ex; \
     apt-get build-dep -y \
         ipxe \
     ; \
+    echo "$WIMBOOT_SHA256 */build/wimboot/wimboot" | sha256sum -c -; \
     git config --global init.defaultBranch master; \
     git clone -c advice.detachedHead=false $URL .; \
     git checkout $VERSION; \
