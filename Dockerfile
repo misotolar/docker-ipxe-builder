@@ -2,7 +2,7 @@ FROM debian:bookworm-slim AS build
 
 LABEL maintainer="michal@sotolar.com"
 
-ARG VERSION=3f4f843920afdc1d808a8b20354cf3eca481401a
+ARG VERSION=2bf16c6ffca1e294bb8233d19c9c36e43b31f041
 ARG URL=https://github.com/ipxe/ipxe
 
 ARG WIMBOOT_VERSION=2.8.0
