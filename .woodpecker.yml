@@ -5,6 +5,11 @@ when:
 variables:
   - &repo "misotolar/ipxe-builder"
   - &desc "Custom iPXE firmware build container"
+  - &auth
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
 
 clone:
 
@@ -26,10 +31,7 @@ steps:
       repo: *repo
       platforms: linux/amd64
       tag: ['${CI_COMMIT_SHA:0:8}', latest]
-      username:
-          from_secret: DOCKER_USERNAME
-      password:
-          from_secret: DOCKER_PASSWORD
+      <<: *auth
 
   - name: update
     image: misotolar/woodpecker-docker-update
@@ -38,7 +40,4 @@ steps:
       repo: *repo
       desc: *desc
       readme: README.md
-      username:
-          from_secret: DOCKER_USERNAME
-      password:
-          from_secret: DOCKER_PASSWORD
+      <<: *auth
