@@ -2,8 +2,9 @@ FROM debian:bookworm-slim AS build
 
 LABEL maintainer="michal@sotolar.com"
 
-ARG VERSION=12ea8c40741786ea33c866d131d510ae70897728
-ARG URL=https://github.com/ipxe/ipxe
+ARG VERSION=f68c8b09e39f1837ea6344f465d62e4b2c62a1c9
+ARG SHA256=ff2424737ab5423d2223aed4da51a4e41e33b4d39515a7b274e58ded0999075b
+ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.8.0
 ARG WIMBOOT_SHA256=74d4bf3d09386ccbbe907d9db59030f8cd8c88f7b4ccb799d386f31def11b3fe
@@ -31,10 +32,9 @@ RUN set -ex; \
     apt-get build-dep -y \
         ipxe \
     ; \
+    echo "$SHA256 */tmp/ipxe.tar.gz" | sha256sum -c -; \
     echo "$WIMBOOT_SHA256 */build/wimboot/wimboot" | sha256sum -c -; \
-    git config --global init.defaultBranch master; \
-    git clone -c advice.detachedHead=false $URL .; \
-    git checkout $VERSION; \
+    tar xf /tmp/ipxe.tar.gz --strip-components=1; \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* \
