@@ -13,18 +13,24 @@ sed -i "/IMAGE_TRUST_CMD/c #define IMAGE_TRUST_CMD" config/general.h
 sed -i "/NTP_CMD/c #define NTP_CMD" config/general.h
 sed -i "/PING_CMD/c #define PING_CMD" config/general.h
 
-_options=(
+_options=()
+
+if [ -z "$DEBUG_BUILD" ]; then
+    _options+=("DEBUG=$DEBUG_BUILD")
+fi
+
+if [ -f "$@/embed.ipxe" ]; then
+    _options+=("EMBED=$@/embed.ipxe")
+fi
+
+_options+=(
     bin/ipxe.lkrn
     bin/undionly.kpxe
     bin-i386-efi/ipxe.efi
     bin-x86_64-efi/ipxe.efi
 )
 
-if [ -f "$@"/embed.ipxe ]; then
-    make EMBED="$@"/embed.ipxe "${_options[@]}"
-else
-    make "${_options[@]}"
-fi
+make "${_options[@]}"
 
 util/genfsimg -o bin/ipxe.iso \
     bin-x86_64-efi/ipxe.efi \
