@@ -2,8 +2,8 @@ FROM debian:bookworm-slim AS build
 
 LABEL maintainer="michal@sotolar.com"
 
-ARG VERSION=0b606221cb0c5c62502709f9918b06b8790d61c3
-ARG SHA256=b077c44b2162454d2716449dca0b38ae34aca3498384d70e98068f61c0c6db2a
+ARG VERSION=0a48bb32145ce14b11d5d1e2a537d3d567489385
+ARG SHA256=83e62b1f6439ea63f4af54471943b647823e06b2d139edd18da33fe6b1dcad11
 ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.8.0
