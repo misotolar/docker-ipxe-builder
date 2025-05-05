@@ -1,9 +1,11 @@
 FROM debian:bookworm-slim AS build
 
-LABEL maintainer="michal@sotolar.com"
+LABEL org.opencontainers.image.url="https://github.com/misotolar/docker-ipxe-builder"
+LABEL org.opencontainers.image.description="Custom iPXE firmware build container"
+LABEL org.opencontainers.image.authors="Michal Sotolar <michal@sotolar.com>"
 
-ARG VERSION=839540cb95a310ebf96d6302afecc3ac97ccf746
-ARG SHA256=2198e3f7d1ac22ccc6a039f5011ea6a129d4049c54e4edf80e3b9d4e2a61bb19
+ARG VERSION=4c11737d5dbd5abf1afae879196271debc988730
+ARG SHA256=ddfbf73844240c2032087335d31d163df084a7c0450422760c8e83d52538af5e
 ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.8.0
