@@ -4,8 +4,8 @@ LABEL org.opencontainers.image.url="https://github.com/misotolar/docker-ipxe-bui
 LABEL org.opencontainers.image.description="Custom iPXE firmware build container"
 LABEL org.opencontainers.image.authors="Michal Sotolar <michal@sotolar.com>"
 
-ARG VERSION=4c11737d5dbd5abf1afae879196271debc988730
-ARG SHA256=ddfbf73844240c2032087335d31d163df084a7c0450422760c8e83d52538af5e
+ARG VERSION=5783a10f721d8f10d535dd2f69a9382c5ef7be7b
+ARG SHA256=a116373623d7d89ef8402cc427f6d8e912fa3186ba9c2003db8f5c1366356ae1
 ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.8.0
