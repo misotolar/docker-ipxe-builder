@@ -15,7 +15,7 @@ sed -i "/PING_CMD/c #define PING_CMD" config/general.h
 
 _options=()
 
-if [ -z "$DEBUG_BUILD" ]; then
+if [ ! -z "$DEBUG_BUILD" ]; then
     _options+=("DEBUG=$DEBUG_BUILD")
 fi
 
