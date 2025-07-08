@@ -38,6 +38,6 @@ steps:
     pull: true
     settings:
       repo: *repo
-      desc: *desc
+      description: *desc
       readme: README.md
       <<: *auth
