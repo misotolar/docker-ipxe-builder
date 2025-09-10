@@ -1,11 +1,11 @@
-FROM debian:bookworm-slim AS build
+FROM debian:trixie-slim AS build
 
 LABEL org.opencontainers.image.url="https://github.com/misotolar/docker-ipxe-builder"
 LABEL org.opencontainers.image.description="Custom iPXE firmware build container"
 LABEL org.opencontainers.image.authors="Michal Sotolar <michal@sotolar.com>"
 
-ARG VERSION=06083d2676593cd52367547805af1127d75a8c3b
-ARG SHA256=af5cc532c5adf3e998495185dc8198c3474d3ed82f73188c9c74e8f2744e2afe
+ARG VERSION=969ce2c559a6841a949a1b73a3967b1889e0c999
+ARG SHA256=1e0a139d9acd122b754d82fa47acc25e97a19d137a43af0718f123e3d467d544
 ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.8.0
@@ -35,16 +35,17 @@ RUN set -ex; \
         ipxe \
     ; \
     echo "$SHA256 */tmp/ipxe.tar.gz" | sha256sum -c -; \
-    echo "$WIMBOOT_SHA256 */build/wimboot/wimboot" | sha256sum -c -; \
     tar xf /tmp/ipxe.tar.gz --strip-components=1; \
+    echo "$WIMBOOT_SHA256 */build/wimboot/wimboot" | sha256sum -c -; \
+    chmod 644 /build/wimboot/wimboot; \
     rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* \
         /tmp/*
 
-COPY resources/builder.sh /usr/local/bin/builder.sh
+COPY resources/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 WORKDIR /build/ipxe/src
 
-ENTRYPOINT ["builder.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["/dest"]
