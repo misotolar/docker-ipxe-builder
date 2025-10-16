@@ -19,14 +19,13 @@ if [ ! -z "$DEBUG_BUILD" ]; then
     _options+=("DEBUG=$DEBUG_BUILD")
 fi
 
-if [ -f "$@/embed.ipxe" ]; then
-    _options+=("EMBED=$@/embed.ipxe")
+if [ -f "$1/embed.ipxe" ]; then
+    _options+=("EMBED=$1/embed.ipxe")
 fi
 
 _options+=(
     bin/ipxe.lkrn
     bin/undionly.kpxe
-    bin-i386-efi/ipxe.efi
     bin-x86_64-efi/ipxe.efi
 )
 
@@ -34,13 +33,11 @@ make "${_options[@]}"
 
 util/genfsimg -o bin/ipxe.iso \
     bin-x86_64-efi/ipxe.efi \
-    bin-i386-efi/ipxe.efi \
     bin/ipxe.lkrn
 
-mkdir -p "$@"
-cp -av bin/ipxe.iso "$@"/ipxe.iso
-cp -av bin/ipxe.lkrn "$@"/ipxe.lkrn
-cp -av bin/undionly.kpxe "$@"/undionly.kpxe
-cp -av bin-i386-efi/ipxe.efi "$@"/efi-i386.efi
-cp -av bin-x86_64-efi/ipxe.efi "$@"/efi-x86_64.efi
-cp -av /build/wimboot/wimboot "$@"/wimboot
+mkdir -p "$1"
+cp -av bin/ipxe.iso "$1"/ipxe.iso
+cp -av bin/ipxe.lkrn "$1"/ipxe.lkrn
+cp -av bin/undionly.kpxe "$1"/undionly.kpxe
+cp -av bin-x86_64-efi/ipxe.efi "$1"/efi-x86_64.efi
+cp -av /build/wimboot/wimboot "$1"/wimboot

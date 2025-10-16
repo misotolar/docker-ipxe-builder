@@ -24,6 +24,12 @@ clone:
 
 steps:
 
+  - name: shellcheck
+    image: kokuwaio/shellcheck
+    pull: true
+    settings:
+      shell: bash
+
   - name: publish
     image: woodpeckerci/plugin-docker-buildx
     pull: true
