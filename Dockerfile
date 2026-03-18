@@ -4,18 +4,18 @@ LABEL org.opencontainers.image.url="https://github.com/misotolar/docker-ipxe-bui
 LABEL org.opencontainers.image.description="Custom iPXE firmware build container"
 LABEL org.opencontainers.image.authors="Michal Sotolar <michal@sotolar.com>"
 
-ARG VERSION=c1badf71ca22f94277873ebc6171bfa41a50e378
-ARG SHA256=ad7adce0141aeeaa26cd8c63eb6d2b1c56e3fe2fce3e4a59e391d2280ef966ff
-ADD https://github.com/ipxe/ipxe/archive/$VERSION.tar.gz /tmp/ipxe.tar.gz
+ENV IPXE_VERSION=2.0.0
+ARG SHA256=9ed6d029be901a0ccc87cb2e5f9c774620f30f84ebdd507c6dd3e1e6229b7bd5
+ADD https://github.com/ipxe/ipxe/archive/refs/tags/v$IPXE_VERSION.tar.gz /tmp/ipxe.tar.gz
 
-ARG WIMBOOT_VERSION=2.8.0
-ARG WIMBOOT_SHA256=74d4bf3d09386ccbbe907d9db59030f8cd8c88f7b4ccb799d386f31def11b3fe
+ARG WIMBOOT_VERSION=2.9.0
+ARG WIMBOOT_SHA256=abe92880c0208b608cdc0f94e903b8b727d554b70d700606ad0484971713f870
 ADD https://github.com/ipxe/wimboot/releases/download/v$WIMBOOT_VERSION/wimboot /build/wimboot/wimboot
 
-ENV PRODUCT_NAME ""
-ENV PRODUCT_SHORT_NAME ""
-ENV PRODUCT_URI https://ipxe.org
-ENV PRODUCT_TAG_LINE "Open Source Network Boot Firmware"
+ENV PRODUCT_NAME=""
+ENV PRODUCT_SHORT_NAME=""
+ENV PRODUCT_URI="https://ipxe.org"
+ENV PRODUCT_TAG_LINE="Open Source Network Boot Firmware"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn

@@ -19,25 +19,30 @@ if [ ! -z "$DEBUG_BUILD" ]; then
     _options+=("DEBUG=$DEBUG_BUILD")
 fi
 
+if [ -f /usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt ]; then
+    _options+=("CERT=/usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt")
+    _options+=("TRUST=/usr/share/ca-certificates/mozilla/ISRG_Root_X1.crt")
+fi
+
 if [ -f "$1/embed.ipxe" ]; then
     _options+=("EMBED=$1/embed.ipxe")
 fi
 
 _options+=(
-    bin/ipxe.lkrn
     bin/undionly.kpxe
-    bin-x86_64-efi/ipxe.efi
+    bin/ipxe-legacy.lkrn
+    bin-x86_64-efi/ipxe-legacy.efi
 )
 
 make "${_options[@]}"
 
 util/genfsimg -o bin/ipxe.iso \
-    bin-x86_64-efi/ipxe.efi \
-    bin/ipxe.lkrn
+    bin-x86_64-efi/ipxe-legacy.efi \
+    bin/ipxe-legacy.lkrn
 
 mkdir -p "$1"
 cp -av bin/ipxe.iso "$1"/ipxe.iso
-cp -av bin/ipxe.lkrn "$1"/ipxe.lkrn
+cp -av bin/ipxe-legacy.lkrn "$1"/ipxe.lkrn
 cp -av bin/undionly.kpxe "$1"/undionly.kpxe
-cp -av bin-x86_64-efi/ipxe.efi "$1"/efi-x86_64.efi
+cp -av bin-x86_64-efi/ipxe-legacy.efi "$1"/efi-x86_64.efi
 cp -av /build/wimboot/wimboot "$1"/wimboot
