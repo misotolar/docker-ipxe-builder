@@ -24,20 +24,20 @@ if [ -f "$1/embed.ipxe" ]; then
 fi
 
 _options+=(
-    bin/ipxe.lkrn
     bin/undionly.kpxe
-    bin-x86_64-efi/ipxe.efi
+    bin/ipxe-legacy.lkrn
+    bin-x86_64-efi/ipxe-legacy.efi
 )
 
 make "${_options[@]}"
 
 util/genfsimg -o bin/ipxe.iso \
-    bin-x86_64-efi/ipxe.efi \
-    bin/ipxe.lkrn
+    bin-x86_64-efi/ipxe-legacy.efi \
+    bin/ipxe-legacy.lkrn
 
 mkdir -p "$1"
 cp -av bin/ipxe.iso "$1"/ipxe.iso
-cp -av bin/ipxe.lkrn "$1"/ipxe.lkrn
+cp -av bin/ipxe-legacy.lkrn "$1"/ipxe.lkrn
 cp -av bin/undionly.kpxe "$1"/undionly.kpxe
-cp -av bin-x86_64-efi/ipxe.efi "$1"/efi-x86_64.efi
+cp -av bin-x86_64-efi/ipxe-legacy.efi "$1"/efi-x86_64.efi
 cp -av /build/wimboot/wimboot "$1"/wimboot
