@@ -5,8 +5,8 @@ LABEL org.opencontainers.image.description="Custom iPXE firmware build container
 LABEL org.opencontainers.image.authors="Michal Sotolar <michal@sotolar.com>"
 
 ENV IPXE_VERSION=2.0.0
-ARG SHA256=9ed6d029be901a0ccc87cb2e5f9c774620f30f84ebdd507c6dd3e1e6229b7bd5
-ADD https://github.com/ipxe/ipxe/archive/refs/tags/v$IPXE_VERSION.tar.gz /tmp/ipxe.tar.gz
+ARG SHA256=da76bb9cf763e5b5dd7a017c465fecca6554b12f24001789cd243a29fc9f6ac3
+ADD https://github.com/ipxe/ipxe/archive/a03f9eda42e6271bc9c4fab20602b0a764b443ce.tar.gz /tmp/ipxe.tar.gz
 
 ARG WIMBOOT_VERSION=2.9.0
 ARG WIMBOOT_SHA256=5f067ccdc4d084d5bf77b6c853bd0f8402dfc2b4cd1b103d358993ae97fae8e3

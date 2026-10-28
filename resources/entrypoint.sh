@@ -23,6 +23,10 @@ if [ -f "$1/embed.ipxe" ]; then
     _options+=("EMBED=$1/embed.ipxe")
 fi
 
+if [ -f "$1/embed.pem" ]; then
+    _options+=("TRUST=$1/embed.pem")
+fi
+
 _options+=(
     bin/undionly.kpxe
     bin/ipxe-legacy.lkrn
